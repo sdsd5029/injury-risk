@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>Injury Risk Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    async function go() {
+      try {
+        const res = await fetch("./target.json?ts=" + Date.now());
+        const data = await res.json();
+        document.getElementById("link").href = data.url;
+        document.getElementById("link").textContent = "부상위험 예측 프로그램 접속";
+        setTimeout(() => {
+          location.href = data.url;
+        }, 700);
+      } catch (error) {
+        document.getElementById("status").textContent =
+          "접속 주소를 불러오지 못했습니다.";
+      }
+    }
+    window.addEventListener("DOMContentLoaded", go);
+  </script>
+</head>
+<body>
+  <h1>부상위험 예측 프로그램</h1>
+  <p id="status">잠시 후 프로그램으로 이동합니다.</p>
+  <a id="link" href="#">접속 준비 중</a>
+</body>
+</html>
